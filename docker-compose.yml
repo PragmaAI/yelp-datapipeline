@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  airflow:
+    build:
+      context: .
+      dockerfile: airflow/Dockerfile
+    container_name: airflow
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+      - ./dags:/app/dags
+      - ./scripts:/app/scripts
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__CORE__DAGS_FOLDER=/app/dags
